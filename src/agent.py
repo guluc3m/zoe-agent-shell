@@ -40,7 +40,9 @@ class ZoeShell(cmd.Cmd):
     def __init__(self):
         super().__init__()
         if not sys.stdout.isatty():
-            print('Not in a TTY, exiting...')
+            print('You are running this agent non interactively, which is not the idea :)')
+            print('If you are running it with docker-compose, try:')
+            print('\n  docker-compose run zoe-agent-shell')
             sys.exit(1)
         self._thread = threading.Thread(target = self.cli, daemon = True)
         self._thread.start()
