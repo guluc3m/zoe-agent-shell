@@ -5,7 +5,7 @@
 #
 
 from zoe import *
-from colors import green
+from colors import green, yellow
 import threading
 import logging
 import json
@@ -17,6 +17,18 @@ def show(what):
     return {
         'intent': 'shell.show',
         'payloads': [ what ]
+    }
+
+def i(i):
+    return {
+        'data': 'integer',
+        'value': i
+    }
+
+def s(s):
+    return {
+        'data': 'string',
+        'value': s
     }
 
 def user(name):
@@ -53,6 +65,11 @@ class ZoeShell(cmd.Cmd):
 
     def cli(self):
         print('Welcome to the Zoe shell!')
+        print('You can send Zoe commands like', green("email(user('someone'), 'subject', 'body')"))
+        print('This shell will translate those commands to the Zoe language and show the results when')
+        print('they are available.')
+        print(yellow('Please note that due to Kafka rebalancing, the first commands'))
+        print(yellow('can take a few seconds to be dispatched.'))
         self.cmdloop()
 
     def emptyline(self):
